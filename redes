@@ -1,1 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta charset="UTF-8">
+    <title>Redes de Computadores – Simulado Plus | Marco A. Siqueira</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f6f9;
+            color: #333;
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            border-bottom: 3px solid #007bff;
+        }
+        header h1 {
+            font-size: 2.2em;
+            color: #007bff;
+            margin: 0;
+        }
+        .questao {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .banca {
+            font-size: 0.9em;
+            color: #6c757d;
+            font-style: italic;
+            margin: 5px 0 10px;
+        }
+        .enunciado {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .alternativas p {
+            margin: 8px 0;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .alternativas p:hover {
+            background-color: #f1f3f5;
+            border-color: #007bff;
+        }
+        .alternativa-certa {
+            background-color: #d4edda !important;
+            border-color: #27ae60 !important;
+            color: #155724;
+            font-weight: bold;
+        }
+        .alternativa-errada {
+            background-color: #f8d7da !important;
+            border-color: #c82333 !important;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .gabarito {
+            font-weight: bold;
+            color: #27ae60;
+            margin: 10px 0;
+            padding: 12px;
+            background-color: #f0fff4;
+            border-left: 4px solid #27ae60;
+            border-radius: 0 8px 8px 0;
+            display: none;
+        }
+        .comentario {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.96em;
+            color: #555;
+            display: none;
+        }
+        .botoes {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 10px 5px;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
 
+        /* Modal de Recompensa */
+        #recompensaModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        #recompensaModal > div {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Redes de Computadores</h1>
+            <p>10 Questões – Simulado Plus | CESPE</p>
+        </header>
+
+        <!-- Questões (mantidas do seu original) -->
+        <div class="questao">
+            <p class="banca">CESPE – TCU – 2023</p>
+            <p class="enunciado">1. O protocolo HTTP opera na camada de transporte do modelo OSI.</p>
+            <div class="alternativas">
+                <p onclick="marcar(this, false, 1)">a) Certo</p>
+                <p onclick="marcar(this, true, 1)">b) Errado</p>
+            </div>
+            <p class="gabarito">✅ Gabarito: b) Errado</p>
+            <div class="comentario">
+                HTTP é um protocolo da <strong>camada de aplicação</strong> (7). A camada de transporte (4) é onde atuam TCP e UDP.
+            </div>
+        </div>
+
+        <!-- Repita as demais 9 questões exatamente como você já tem -->
+        <!-- (por brevidade, mantive só a primeira aqui — você cola as outras 9) -->
+
+        <!-- Adicione as outras 9 questões aqui -->
+
+        <div class="botoes">
+            <a href="../.." class="btn">↩️ Voltar ao Menu</a>
+        </div>
+    </div>
+
+    <!-- Modal de Recompensa -->
+    <div id="recompensaModal">
+        <div>
+            <h2 style="color:#007bff; margin-top:0;">🎉 Parabéns! Você se destacou!</h2>
+            <p>Você acertou <strong id="pontuacaoFinal"></strong> das questões — e por isso, ganhou acesso ao guia:</p>
+            <p><strong>“7 Erros que 97% dos Concurseiros de TI Cometem”</strong></p>
+            <p>Para receber, cadastre-se abaixo:</p>
+
+            <!-- ⚠️ Substitua SEU-ENDPOINT pelo seu do Formspree -->
+            <form id="cadastroForm" action="https://formspree.io/f/SEU-ENDPOINT" method="POST">
+                <input type="text" name="nome" placeholder="Seu nome" required style="width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:5px;">
+                <input type="email" name="email" placeholder="Seu e-mail" required style="width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:5px;">
+                <input type="hidden" name="_subject" value="Cadastro Simulado Plus - Redes">
+                <input type="hidden" name="_next" value="https://maureliosiqueira.github.io/Guia_gratuito_TI/">
+                <button type="submit" style="background:#28a745; color:white; padding:12px; width:100%; border:none; border-radius:5px; font-weight:bold;">Receber meu PDF agora</button>
+            </form>
+            <button onclick="document.getElementById('recompensaModal').style.display='none'" style="margin-top:15px; background:#6c757d; color:white; padding:8px; width:100%; border:none; border-radius:5px;">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        let acertos = 0;
+        let totalQuestoes = 10; // ajuste conforme o número real
+        let questoesRespondidas = new Set();
+
+        function marcar(elemento, estaCerto, questaoId) {
+            if (questoesRespondidas.has(questaoId)) return;
+
+            const alternativas = elemento.parentElement.querySelectorAll('p');
+            alternativas.forEach(el => {
+                el.style.fontWeight = 'normal';
+                el.style.backgroundColor = '#f8f9fa';
+                el.style.borderColor = '#e9ecef';
+            });
+
+            if (estaCerto) {
+                elemento.classList.add('alternativa-certa');
+                acertos++;
+            } else {
+                elemento.classList.add('alternativa-errada');
+            }
+
+            questoesRespondidas.add(questaoId);
+
+            const gabarito = elemento.parentElement.nextElementSibling;
+            const comentario = gabarito.nextElementSibling;
+            gabarito.style.display = 'block';
+            comentario.style.display = 'block';
+
+            if (questoesRespondidas.size === totalQuestoes) {
+                setTimeout(() => finalizarSimulado(), 1000);
+            }
+        }
+
+        function finalizarSimulado() {
+            const percentual = Math.round((acertos / totalQuestoes) * 100);
+            document.getElementById('pontuacaoFinal').innerText = `${acertos} de ${totalQuestoes} (${percentual}%)`;
+
+            if (percentual >= 80) {
+                document.getElementById('recompensaModal').style.display = 'flex';
+            } else {
+                alert(`Você acertou ${acertos} de ${totalQuestoes} (${percentual}%).\nContinue estudando!`);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.gabarito, .comentario').forEach(el => el.style.display = 'none');
+            acertos = 0;
+            questoesRespondidas.clear();
+        });
+    </script>
+</body>
+</html>
