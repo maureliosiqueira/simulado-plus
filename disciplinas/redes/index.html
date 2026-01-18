@@ -231,4 +231,136 @@
         </div>
 
         <!-- Questão 7 -->
-        <div class="
+        <div class="questao">
+            <p class="banca">CESPE – TCE-RJ – 2023</p>
+            <p class="enunciado">7. O protocolo FTP é seguro por padrão, pois criptografa todos os dados transmitidos.</p>
+            <div class="alternativas">
+                <p onclick="marcar(this, false, 7)">a) Certo</p>
+                <p onclick="marcar(this, true, 7)">b) Errado</p>
+            </div>
+            <p class="gabarito">✅ Gabarito: b) Errado</p>
+            <div class="comentario">
+                FTP transmite dados em texto puro. Para segurança, usa-se FTPS ou SFTP. A CESPE testa conhecimento de segurança básica.
+            </div>
+        </div>
+
+        <!-- Questão 8 -->
+        <div class="questao">
+            <p class="banca">CESPE – TRE-AM – 2022</p>
+            <p class="enunciado">8. O endereço IP 127.0.0.1 é usado para loopback e testes locais.</p>
+            <div class="alternativas">
+                <p onclick="marcar(this, true, 8)">a) Certo</p>
+                <p onclick="marcar(this, false, 8)">b) Errado</p>
+            </div>
+            <p class="gabarito">✅ Gabarito: a) Certo</p>
+            <div class="comentario">
+                127.0.0.1 é o endereço de loopback. Qualquer pacote enviado a ele é retornado ao próprio host, sem sair da interface de rede.
+            </div>
+        </div>
+
+        <!-- Questão 9 -->
+        <div class="questao">
+            <p class="banca">CESPE – INSS – 2023</p>
+            <p class="enunciado">9. O protocolo UDP é confiável e orientado à conexão.</p>
+            <div class="alternativas">
+                <p onclick="marcar(this, false, 9)">a) Certo</p>
+                <p onclick="marcar(this, true, 9)">b) Errado</p>
+            </div>
+            <p class="gabarito">✅ Gabarito: b) Errado</p>
+            <div class="comentario">
+                UDP é <strong>não confiável</strong> e <strong>sem conexão</strong>. TCP é que é confiável. A CESPE inverte os atributos para testar atenção.
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="questao">
+            <p class="banca">CESPE – TCU – 2022</p>
+            <p class="enunciado">10. O NAT (Network Address Translation) permite que múltiplos dispositivos compartilhem um único endereço IP público.</p>
+            <div class="alternativas">
+                <p onclick="marcar(this, true, 10)">a) Certo</p>
+                <p onclick="marcar(this, false, 10)">b) Errado</p>
+            </div>
+            <p class="gabarito">✅ Gabarito: a) Certo</p>
+            <div class="comentario">
+                NAT é essencial em redes domésticas e corporativas. Ele traduz endereços privados (192.168.x.x) para um IP público na saída para a internet.
+            </div>
+        </div>
+
+        <div class="botoes">
+            <a href="../.." class="btn">↩️ Voltar ao Menu</a>
+        </div>
+    </div>
+
+    <!-- Modal de Recompensa -->
+    <div id="recompensaModal">
+        <div>
+            <h2 style="color:#007bff; margin-top:0;">🎉 Parabéns! Você se destacou!</h2>
+            <p>Você acertou <strong id="pontuacaoFinal"></strong> das questões — e por isso, ganhou acesso ao guia:</p>
+            <p><strong>“7 Erros que 97% dos Concurseiros de TI Cometem”</strong></p>
+            <p>Para receber, cadastre-se abaixo:</p>
+
+            <!-- ⚠️ Substitua SEU-ENDPOINT pelo seu do Formspree -->
+            <form id="cadastroForm" action="https://formspree.io/f/SEU-ENDPOINT" method="POST">
+                <input type="text" name="nome" placeholder="Seu nome" required style="width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:5px;">
+                <input type="email" name="email" placeholder="Seu e-mail" required style="width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:5px;">
+                <input type="hidden" name="_subject" value="Cadastro Simulado Plus - Redes">
+                <input type="hidden" name="_next" value="https://maureliosiqueira.github.io/Guia_gratuito_TI/">
+                <button type="submit" style="background:#28a745; color:white; padding:12px; width:100%; border:none; border-radius:5px; font-weight:bold;">Receber meu PDF agora</button>
+            </form>
+            <button onclick="document.getElementById('recompensaModal').style.display='none'" style="margin-top:15px; background:#6c757d; color:white; padding:8px; width:100%; border:none; border-radius:5px;">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        let acertos = 0;
+        let totalQuestoes = 10;
+        let questoesRespondidas = new Set();
+
+        function marcar(elemento, estaCerto, questaoId) {
+            if (questoesRespondidas.has(questaoId)) return;
+
+            const alternativas = elemento.parentElement.querySelectorAll('p');
+            alternativas.forEach(el => {
+                el.style.fontWeight = 'normal';
+                el.style.backgroundColor = '#f8f9fa';
+                el.style.borderColor = '#e9ecef';
+            });
+
+            if (estaCerto) {
+                elemento.classList.add('alternativa-certa');
+                acertos++;
+            } else {
+                elemento.classList.add('alternativa-errada');
+            }
+
+            questoesRespondidas.add(questaoId);
+
+            const gabarito = elemento.parentElement.nextElementSibling;
+            const comentario = gabarito.nextElementSibling;
+            gabarito.style.display = 'block';
+            comentario.style.display = 'block';
+
+            if (questoesRespondidas.size === totalQuestoes) {
+                setTimeout(() => finalizarSimulado(), 1000);
+            }
+        }
+
+        function finalizarSimulado() {
+            const percentual = Math.round((acertos / totalQuestoes) * 100);
+            document.getElementById('pontuacaoFinal').innerText = `${acertos} de ${totalQuestoes} (${percentual}%)`;
+
+            if (percentual >= 80) {
+                document.getElementById('recompensaModal').style.display = 'flex';
+            } else {
+                alert(`Você acertou ${acertos} de ${totalQuestoes} (${percentual}%).\nContinue estudando!`);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.gabarito, .comentario').forEach(el => el.style.display = 'none');
+            acertos = 0;
+            questoesRespondidas.clear();
+        });
+    </script>
+</body>
+</html>
