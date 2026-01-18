@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Teste Redes - Simulado Plus</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .questao { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 8px; }
+        .alternativas p { padding: 8px; cursor: pointer; background: #f0f0f0; margin: 5px 0; }
+        .alternativas p:hover { background: #e0e0e0; }
+        .btn { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Teste de Redes - Simulado Plus</h1>
+
+    <!-- Questão 1 -->
+    <div class="questao">
+        <p>1. HTTP opera na camada de transporte?</p>
+        <div class="alternativas">
+            <p onclick="marcar(this, false, 1)">a) Certo</p>
+            <p onclick="marcar(this, true, 1)">b) Errado</p>
+        </div>
+    </div>
+
+    <!-- Questão 2 -->
+    <div class="questao">
+        <p>2. DNS usa apenas TCP?</p>
+        <div class="alternativas">
+            <p onclick="marcar(this, false, 2)">a) Certo</p>
+            <p onclick="marcar(this, true, 2)">b) Errado</p>
+        </div>
+    </div>
+
+    <button class="btn" onclick="finalizarSimulado()">Finalizar Simulado (forçar)</button>
+
+    <div id="resultado" style="margin-top: 20px; font-weight: bold;"></div>
+
+    <script>
+        let acertos = 0;
+        let totalQuestoes = 2;
+        let questoesRespondidas = new Set();
+
+        function marcar(elemento, estaCerto, questaoId) {
+            if (questoesRespondidas.has(questaoId)) return;
+
+            if (estaCerto) {
+                acertos++;
+                elemento.style.backgroundColor = '#d4edda';
+            } else {
+                elemento.style.backgroundColor = '#f8d7da';
+            }
+
+            questoesRespondidas.add(questaoId);
+            console.log("Acertos:", acertos, "Respondidas:", questoesRespondidas.size);
+
+            if (questoesRespondidas.size === totalQuestoes) {
+                finalizarSimulado();
+            }
+        }
+
+        function finalizarSimulado() {
+            const percentual = Math.round((acertos / totalQuestoes) * 100);
+            document.getElementById('resultado').innerText = 
+                `Você acertou ${acertos} de ${totalQuestoes} (${percentual}%)`;
+            
+            if (percentual >= 80) {
+                alert("🎉 Parabéns! Você se destacou!");
+            } else {
+                alert(`Você acertou ${percentual}%. Continue estudando!`);
+            }
+        }
+
+        // Reset ao carregar
+        window.onload = () => {
+            acertos = 0;
+            questoesRespondidas.clear();
+            document.getElementById('resultado').innerText = '';
+        };
+    </script>
+</body>
+</html>
