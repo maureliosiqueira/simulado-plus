@@ -291,27 +291,25 @@
         </div>
     </div>
 
-    <!-- Modal de Recompensa -->
-    <div id="recompensaModal">
-        <div>
-            <h2 style="color:#007bff; margin-top:0;">🎉 Parabéns! Você se destacou!</h2>
-            <p>Você acertou <strong id="pontuacaoFinal"></strong> das questões — e por isso, ganhou acesso ao guia:</p>
-            <p><strong>“7 Erros que 97% dos Concurseiros de TI Cometem”</strong></p>
-            <p>Para receber, cadastre-se abaixo:</p>
+   <!-- Modal de Recompensa -->
+<div id="recompensaModal">
+    <div>
+        <h2 style="color:#007bff; margin-top:0;">🎉 Parabéns! Você se destacou!</h2>
+        <p>Você acertou <strong id="pontuacaoFinal"></strong> das questões — e por isso, ganhou acesso ao guia:</p>
+        <p><strong>“7 Erros que 97% dos Concurseiros de TI Cometem”</strong></p>
+        <p>Para receber, cadastre-se abaixo:</p>
 
-            <!-- ⚠️ Substitua SEU-ENDPOINT pelo seu do Formspree -->
-                <!-- CERTO -->
-                <form id="cadastroForm" action="https://formspree.io/f/xyz123" method="POST">    
-                <input type="hidden" name="_next" value="https://maureliosiqueira.github.io/Guia_gratuito_TI/">
-                <input type="text" name="nome" placeholder="Seu nome" required style="width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:5px;">
-                <input type="email" name="email" placeholder="Seu e-mail" required style="width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:5px;">
-                <input type="hidden" name="_subject" value="Cadastro Simulado Plus - Redes">
-                <input type="hidden" name="_next" value="https://maureliosiqueira.github.io/Guia_gratuito_TI/">
-                <button type="submit" style="background:#28a745; color:white; padding:12px; width:100%; border:none; border-radius:5px; font-weight:bold;">Receber meu PDF agora</button>
-            </form>
-            <button onclick="document.getElementById('recompensaModal').style.display='none'" style="margin-top:15px; background:#6c757d; color:white; padding:8px; width:100%; border:none; border-radius:5px;">Fechar</button>
-        </div>
+        <!-- Endpoint CORRETO sem espaços -->
+        <form id="cadastroForm" action="https://formspree.io/f/xzddebap" method="POST">
+            <input type="text" name="nome" placeholder="Seu nome" required style="width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:5px;">
+            <input type="email" name="email" placeholder="Seu e-mail" required style="width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:5px;">
+            <input type="hidden" name="_subject" value="Cadastro Simulado Plus - Redes">
+            <input type="hidden" name="_next" value="https://maureliosiqueira.github.io/Guia_gratuito_TI/">
+            <button type="submit" style="background:#28a745; color:white; padding:12px; width:100%; border:none; border-radius:5px; font-weight:bold;">Receber meu PDF agora</button>
+        </form>
+        <button onclick="document.getElementById('recompensaModal').style.display='none'" style="margin-top:15px; background:#6c757d; color:white; padding:8px; width:100%; border:none; border-radius:5px;">Fechar</button>
     </div>
+</div>
 
     <script>
         let acertos = 0;
