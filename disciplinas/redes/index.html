@@ -317,7 +317,10 @@
         let questoesRespondidas = new Set();
 
         function marcar(elemento, estaCerto, questaoId) {
-            if (questoesRespondidas.has(questaoId)) return;
+            if (questoesRespondidas.has(questaoId)) {
+                console.log(`Questão ${questaoId} já respondida. Ignorando.`);
+                return;
+            }
 
             const alternativas = elemento.parentElement.querySelectorAll('p');
             alternativas.forEach(el => {
@@ -329,11 +332,14 @@
             if (estaCerto) {
                 elemento.classList.add('alternativa-certa');
                 acertos++;
+                console.log(`Acerto na questão ${questaoId}. Total de acertos: ${acertos}`);
             } else {
                 elemento.classList.add('alternativa-errada');
+                console.log(`Erro na questão ${questaoId}.`);
             }
 
             questoesRespondidas.add(questaoId);
+            console.log(`Questões respondidas: ${questoesRespondidas.size}/${totalQuestoes}`);
 
             const gabarito = elemento.parentElement.nextElementSibling;
             const comentario = gabarito.nextElementSibling;
@@ -341,6 +347,7 @@
             comentario.style.display = 'block';
 
             if (questoesRespondidas.size === totalQuestoes) {
+                console.log("Todas as questões respondidas. Finalizando simulado...");
                 setTimeout(() => finalizarSimulado(), 1000);
             }
         }
@@ -349,14 +356,30 @@
             const percentual = Math.round((acertos / totalQuestoes) * 100);
             document.getElementById('pontuacaoFinal').innerText = `${acertos} de ${totalQuestoes} (${percentual}%)`;
 
+            // Ranking simbólico baseado em média histórica
+            let rankingMsg = "";
+            if (percentual >= 90) {
+                rankingMsg = "Você está no top 5% dos concurseiros!";
+            } else if (percentual >= 80) {
+                rankingMsg = "Você está no top 15% dos concurseiros!";
+            } else if (percentual >= 70) {
+                rankingMsg = "Você está acima da média nacional!";
+            } else {
+                rankingMsg = "Continue estudando — você vai melhorar!";
+            }
+
+            console.log(`Pontuação final: ${percentual}%. ${rankingMsg}`);
+
             if (percentual >= 80) {
                 document.getElementById('recompensaModal').style.display = 'flex';
+                alert(`Parabéns! ${rankingMsg}\nVocê ganhou acesso ao guia gratuito!`);
             } else {
-                alert(`Você acertou ${acertos} de ${totalQuestoes} (${percentual}%).\nContinue estudando!`);
+                alert(`Você acertou ${acertos} de ${totalQuestoes} (${percentual}%).\n${rankingMsg}`);
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            console.log("Página carregada. Resetando contadores.");
             document.querySelectorAll('.gabarito, .comentario').forEach(el => el.style.display = 'none');
             acertos = 0;
             questoesRespondidas.clear();
