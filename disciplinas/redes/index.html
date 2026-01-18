@@ -291,25 +291,25 @@
         </div>
     </div>
 
-   <!-- Modal de Recompensa -->
-<div id="recompensaModal">
-    <div>
-        <h2 style="color:#007bff; margin-top:0;">🎉 Parabéns! Você se destacou!</h2>
-        <p>Você acertou <strong id="pontuacaoFinal"></strong> das questões — e por isso, ganhou acesso ao guia:</p>
-        <p><strong>“7 Erros que 97% dos Concurseiros de TI Cometem”</strong></p>
-        <p>Para receber, cadastre-se abaixo:</p>
+    <!-- Modal de Recompensa -->
+    <div id="recompensaModal">
+        <div>
+            <h2 style="color:#007bff; margin-top:0;">🎉 Parabéns! Você se destacou!</h2>
+            <p>Você acertou <strong id="pontuacaoFinal"></strong> das questões — e por isso, ganhou acesso ao guia:</p>
+            <p><strong>“7 Erros que 97% dos Concurseiros de TI Cometem”</strong></p>
+            <p>Para receber, cadastre-se abaixo:</p>
 
-       <!-- CERTO -->
-<form id="cadastroForm" action="https://formspree.io/f/xzddebap" method="POST">
-<input type="hidden" name="_next" value="https://maureliosiqueira.github.io/Guia_gratuito_TI/">
-            <input type="email" name="email" placeholder="Seu e-mail" required style="width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:5px;">
-            <input type="hidden" name="_subject" value="Cadastro Simulado Plus - Redes">
-            <input type="hidden" name="_next" value="https://maureliosiqueira.github.io/Guia_gratuito_TI/">
-            <button type="submit" style="background:#28a745; color:white; padding:12px; width:100%; border:none; border-radius:5px; font-weight:bold;">Receber meu PDF agora</button>
-        </form>
-        <button onclick="document.getElementById('recompensaModal').style.display='none'" style="margin-top:15px; background:#6c757d; color:white; padding:8px; width:100%; border:none; border-radius:5px;">Fechar</button>
+            <!-- Formulário corrigido -->
+            <form id="cadastroForm" action="https://formspree.io/f/xzddebap" method="POST">
+                <input type="text" name="nome" placeholder="Seu nome" required style="width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:5px;">
+                <input type="email" name="email" placeholder="Seu e-mail" required style="width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:5px;">
+                <input type="hidden" name="_subject" value="Cadastro Simulado Plus - Redes">
+                <input type="hidden" name="_next" value="https://maureliosiqueira.github.io/Guia_gratuito_TI/">
+                <button type="submit" style="background:#28a745; color:white; padding:12px; width:100%; border:none; border-radius:5px; font-weight:bold;">Receber meu PDF agora</button>
+            </form>
+            <button onclick="document.getElementById('recompensaModal').style.display='none'" style="margin-top:15px; background:#6c757d; color:white; padding:8px; width:100%; border:none; border-radius:5px;">Fechar</button>
+        </div>
     </div>
-</div>
 
     <script>
         let acertos = 0;
@@ -317,10 +317,7 @@
         let questoesRespondidas = new Set();
 
         function marcar(elemento, estaCerto, questaoId) {
-            if (questoesRespondidas.has(questaoId)) {
-                console.log(`Questão ${questaoId} já respondida. Ignorando.`);
-                return;
-            }
+            if (questoesRespondidas.has(questaoId)) return;
 
             const alternativas = elemento.parentElement.querySelectorAll('p');
             alternativas.forEach(el => {
@@ -332,14 +329,11 @@
             if (estaCerto) {
                 elemento.classList.add('alternativa-certa');
                 acertos++;
-                console.log(`Acerto na questão ${questaoId}. Total de acertos: ${acertos}`);
             } else {
                 elemento.classList.add('alternativa-errada');
-                console.log(`Erro na questão ${questaoId}.`);
             }
 
             questoesRespondidas.add(questaoId);
-            console.log(`Questões respondidas: ${questoesRespondidas.size}/${totalQuestoes}`);
 
             const gabarito = elemento.parentElement.nextElementSibling;
             const comentario = gabarito.nextElementSibling;
@@ -347,7 +341,6 @@
             comentario.style.display = 'block';
 
             if (questoesRespondidas.size === totalQuestoes) {
-                console.log("Todas as questões respondidas. Finalizando simulado...");
                 setTimeout(() => finalizarSimulado(), 1000);
             }
         }
@@ -356,30 +349,20 @@
             const percentual = Math.round((acertos / totalQuestoes) * 100);
             document.getElementById('pontuacaoFinal').innerText = `${acertos} de ${totalQuestoes} (${percentual}%)`;
 
-            // Ranking simbólico baseado em média histórica
             let rankingMsg = "";
-            if (percentual >= 90) {
-                rankingMsg = "Você está no top 5% dos concurseiros!";
-            } else if (percentual >= 80) {
-                rankingMsg = "Você está no top 15% dos concurseiros!";
-            } else if (percentual >= 70) {
-                rankingMsg = "Você está acima da média nacional!";
-            } else {
-                rankingMsg = "Continue estudando — você vai melhorar!";
-            }
-
-            console.log(`Pontuação final: ${percentual}%. ${rankingMsg}`);
+            if (percentual >= 90) rankingMsg = "Você está no top 5% dos concurseiros!";
+            else if (percentual >= 80) rankingMsg = "Você está no top 15% dos concurseiros!";
+            else if (percentual >= 70) rankingMsg = "Você está acima da média nacional!";
+            else rankingMsg = "Continue estudando — você vai melhorar!";
 
             if (percentual >= 80) {
                 document.getElementById('recompensaModal').style.display = 'flex';
-                alert(`Parabéns! ${rankingMsg}\nVocê ganhou acesso ao guia gratuito!`);
             } else {
                 alert(`Você acertou ${acertos} de ${totalQuestoes} (${percentual}%).\n${rankingMsg}`);
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            console.log("Página carregada. Resetando contadores.");
             document.querySelectorAll('.gabarito, .comentario').forEach(el => el.style.display = 'none');
             acertos = 0;
             questoesRespondidas.clear();
